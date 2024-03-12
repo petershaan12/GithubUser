@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Github User</string>
+    <string name="title">Judul</string>
+    <string name="description">Description</string>
+    <string name="review">Review</string>
+    <string name="write_your_review_here">Write your review here..</string>
+    <string name="send">Kirim</string>
+    <string name="github_logo">GitHub Logo</string>
+    <string name="nama">Nama</string>
+    <string name="searchbar_hint">Masukkan kata</string>
+</resources>
