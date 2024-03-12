@@ -13,10 +13,8 @@ import retrofit2.Response
 
 class MainViewModel: ViewModel(){
 
-    private val _github = MutableLiveData<GithubResponse>()
-    val github: LiveData<GithubResponse> = _github
     private val _listGithubUsers = MutableLiveData<List<ItemsItem>>()
-    val listReview: LiveData<List<ItemsItem>> = _listGithubUsers
+    val listGithubUsers: LiveData<List<ItemsItem>> = _listGithubUsers
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
@@ -25,7 +23,11 @@ class MainViewModel: ViewModel(){
         private const val GITHUB_NAME = "Peter"
     }
 
-    private fun findGithubUser(name: String) {
+    init {
+        findGithubUser(GITHUB_NAME)
+    }
+
+    fun findGithubUser(name: String) {
         _isLoading.value = true
         val client = ApiConfig.getApiService().getResponUser(name)
         client.enqueue(object : Callback<GithubResponse> {

@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(MainViewModel::class.java)
-        mainViewModel.github.observe(this) { github ->
+        mainViewModel.listGithubUsers.observe(this) { github ->
             setListData(github)
         }
 
@@ -42,21 +42,21 @@ class MainActivity : AppCompatActivity() {
         val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
         binding.rvReview.addItemDecoration(itemDecoration)
 
+        mainViewModel.isLoading.observe(this) {
+            showLoading(it)
+        }
 
         with(binding) {
-
             searchView.setupWithSearchBar(searchBar)
             searchView.editText.setOnEditorActionListener { textView, actionId, event ->
                 searchBar.setText(searchView.text)
-                findGithubUser(searchView.text.toString())
+                mainViewModel.findGithubUser(searchView.text.toString())
                 searchView.hide()
                 // Toast.makeText(this@MainActivity, searchView.text, Toast.LENGTH_SHORT).show()
                 false
             }
         }
     }
-
-
     private fun setListData(GithubUser: List<ItemsItem>) {
         val adapter = GithubAdapter()
         adapter.submitList(GithubUser)
