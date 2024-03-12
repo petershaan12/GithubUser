@@ -1,13 +1,22 @@
 package com.petershaan.githubuser.data.retrofit
 
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.Headers
 
 class ApiConfig {
     companion object{
         fun getApiService(): ApiService {
+            val authInterceptor = Interceptor { chain ->
+                val req = chain.request()
+                val requestHeaders = req.newBuilder()
+                    .addHeader("Authorization","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")
+                    .build()
+                chain.proceed(requestHeaders)
+            }
             val loggingInterceptor =
                 HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
             val client = OkHttpClient.Builder()

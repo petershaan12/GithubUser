@@ -1,5 +1,6 @@
 package com.petershaan.githubuser.ui
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -17,6 +18,7 @@ class GithubAdapter : ListAdapter<ItemsItem, GithubAdapter.MyViewHolder>(DIFF_CA
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val review = getItem(position)
         holder.bind(review)
+
     }
     class MyViewHolder(val binding: GithubUsersBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(github: ItemsItem){

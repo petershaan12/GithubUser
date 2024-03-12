@@ -49,6 +49,7 @@
         android:layout_height="0dp"
         android:paddingRight="16dp"
         android:paddingLeft="16dp"
+        android:paddingTop="20dp"
         android:overScrollMode="never"
         android:scrollbarSize="0dp"
         android:background="@color/not_white"

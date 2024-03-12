@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
                 searchBar.setText(searchView.text)
                 mainViewModel.findGithubUser(searchView.text.toString())
                 searchView.hide()
-                // Toast.makeText(this@MainActivity, searchView.text, Toast.LENGTH_SHORT).show()
+                 Toast.makeText(this@MainActivity, searchView.text, Toast.LENGTH_SHORT).show()
                 false
             }
         }
