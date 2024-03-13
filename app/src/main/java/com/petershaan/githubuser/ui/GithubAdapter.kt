@@ -16,9 +16,16 @@ class GithubAdapter : ListAdapter<ItemsItem, GithubAdapter.MyViewHolder>(DIFF_CA
         return MyViewHolder(binding)
     }
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val review = getItem(position)
-        holder.bind(review)
+        val item = getItem(position)
+        holder.bind(item)
 
+        holder.itemView.setOnClickListener {
+            val context = holder.itemView.context
+            val intent = Intent(context, DetailActivity::class.java).apply {
+                putExtra("USER_GITHUB", item.login)
+            }
+            context.startActivity(intent)
+        }
     }
     class MyViewHolder(val binding: GithubUsersBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(github: ItemsItem){

@@ -5,6 +5,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import androidx.activity.viewModels
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -23,6 +24,7 @@ import retrofit2.Response
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private val mainViewModel by viewModels<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,15 +34,15 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(MainViewModel::class.java)
+//        val mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(MainViewModel::class.java)
         mainViewModel.listGithubUsers.observe(this) { github ->
             setListData(github)
         }
 
         val layoutManager = LinearLayoutManager(this)
-        binding.rvReview.layoutManager = layoutManager
+        binding.rvUsers.layoutManager = layoutManager
         val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
-        binding.rvReview.addItemDecoration(itemDecoration)
+        binding.rvUsers.addItemDecoration(itemDecoration)
 
         mainViewModel.isLoading.observe(this) {
             showLoading(it)
@@ -52,7 +54,6 @@ class MainActivity : AppCompatActivity() {
                 searchBar.setText(searchView.text)
                 mainViewModel.findGithubUser(searchView.text.toString())
                 searchView.hide()
-                 Toast.makeText(this@MainActivity, searchView.text, Toast.LENGTH_SHORT).show()
                 false
             }
         }
@@ -60,13 +61,10 @@ class MainActivity : AppCompatActivity() {
     private fun setListData(GithubUser: List<ItemsItem>) {
         val adapter = GithubAdapter()
         adapter.submitList(GithubUser)
-        binding.rvReview.adapter = adapter
+        binding.rvUsers.adapter = adapter
     }
+
     private fun showLoading(isLoading: Boolean) {
-        if (isLoading) {
-            binding.progressBar.visibility = View.VISIBLE
-        } else {
-            binding.progressBar.visibility = View.GONE
-        }
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 }
