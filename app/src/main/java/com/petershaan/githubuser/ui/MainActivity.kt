@@ -16,10 +16,6 @@ import com.petershaan.githubuser.data.response.GithubResponse
 import com.petershaan.githubuser.data.response.ItemsItem
 import com.petershaan.githubuser.data.retrofit.ApiConfig
 import com.petershaan.githubuser.databinding.ActivityMainBinding
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-
 
 class MainActivity : AppCompatActivity() {
 

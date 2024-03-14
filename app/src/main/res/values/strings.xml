@@ -6,4 +6,9 @@
     <string name="username">petershaan_</string>
     <string name="jumlah_following">%1$d following</string>
     <string name="jumlah_followers">%1$d followers</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tab_text_1">My Following</string>
+    <string name="tab_text_2">My Followers</string>
+    <string name="isi_fragment">ini adalah Fragment</string>
+    <string name="content_tab_text">This is Tab %1$d</string>
 </resources>
