@@ -2,7 +2,7 @@
     <string name="app_name">Github User</string>
     <string name="github_logo">GitHub Logo</string>
     <string name="nama">Peter Shaan</string>
-    <string name="searchbar_hint">Masukkan Username Yang Kamu Cari</string>
+    <string name="searchbar_hint">Cari siapa ?</string>
     <string name="username">petershaan_</string>
     <string name="jumlah_following">%1$d following</string>
     <string name="jumlah_followers">%1$d followers</string>

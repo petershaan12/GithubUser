@@ -5,20 +5,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.viewModels
-import com.petershaan.githubuser.data.response.DetailGithubResponse
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.petershaan.githubuser.data.response.ItemsItem
 import com.petershaan.githubuser.databinding.FragmentFollowBinding
 
-
 class FollowFragment : Fragment() {
-    private var position: Int? = 0
-    private var username: String? = ""
-
+    companion object {
+        const val ARG_POSITION = "position"
+        const val ARG_USERNAME = "username"
+    }
     private lateinit var binding: FragmentFollowBinding
     private val followViewModel by viewModels<FollowViewModel>()
+
+    private var position: Int = 0
+    private var username: String = ""
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+                              savedInstanceState: Bundle?): View {
         binding = FragmentFollowBinding.inflate(inflater, container, false) // Menggunakan binding yang benar
         return binding.root
     }
@@ -27,36 +30,33 @@ class FollowFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         arguments?.let {
             position = it.getInt(ARG_POSITION)
-            username = it.getString(ARG_USERNAME)
+            username = it.getString(ARG_USERNAME) ?: ""
         }
         if (position == 1){
-//            binding.sectionLabel.text = "Get Follower $username"
-            followViewModel.getFollowers(username)
-            followViewModel.getFollowers.observe(viewLifecycleOwner) { followersList ->
-                setupRecyclerView(followersList)
+            followViewModel.getFollowing(username)
+            followViewModel.listFollowing.observe(viewLifecycleOwner) { followingList ->
+                setupRecyclerView(followingList)
             }
         } else {
-//            binding.sectionLabel.text = "Get Following $username"
+            followViewModel.getFollowers(username)
+            followViewModel.listFollowers.observe(viewLifecycleOwner) { followersList ->
+                setupRecyclerView(followersList)
+            }
+        }
+        followViewModel.isLoading.observe(viewLifecycleOwner) {
+            showLoading(it)
         }
     }
 
-    companion object {
-        const val ARG_POSITION = "param1"
-        const val ARG_USERNAME = "param2"
-    }
-
-    private fun setupRecyclerView(Follow: List<ItemsItem>) {
+    private fun setupRecyclerView(follow: List<ItemsItem>) {
+        binding.rvListFollow.layoutManager = LinearLayoutManager(requireContext())
         val adapter = GithubAdapter()
-        adapter.submitList(Follow)
-        binding.rvList.adapter = adapter
+        adapter.submitList(follow)
+        binding.rvListFollow.adapter = adapter
     }
 
     private fun showLoading(isLoading: Boolean) {
-        if (isLoading) {
-            binding.progressBar.visibility = View.VISIBLE
-        } else {
-            binding.progressBar.visibility = View.GONE
-        }
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 }
 

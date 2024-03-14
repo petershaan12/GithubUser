@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.StyleSpan
+import android.view.View
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
@@ -33,9 +34,24 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setupActionBar()
 
+        binding.backButton.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
+
+        detailViewModel.isLoading.observe(this) {
+            showLoading(it)
+        }
+
+        val username = intent.getStringExtra(EXTRA_USER)
         val sectionsPagerAdapter = SectionsPagerAdapter(this)
+
+        if (username != null) {
+            detailViewModel.githubUser(username)
+            sectionsPagerAdapter.username = username.orEmpty()
+        }
+
+
         val viewPager: ViewPager2 = binding.viewPager
         viewPager.adapter = sectionsPagerAdapter
         val tabs: TabLayout = binding.tabs
@@ -43,12 +59,6 @@ class DetailActivity : AppCompatActivity() {
             tab.text = resources.getString(TAB_TITLES[position])
         }.attach()
         supportActionBar?.elevation = 0f
-
-        val userLogin = intent.getStringExtra(EXTRA_USER)
-
-        if (userLogin != null) {
-            detailViewModel.githubUser(userLogin)
-        }
 
 //        Data Untuk Github Detail
         detailViewModel.detailGithubUsers.observe(this, Observer { response ->
@@ -61,9 +71,9 @@ class DetailActivity : AppCompatActivity() {
             followersText.setSpan(StyleSpan(Typeface.BOLD), 0, followersCount.toString().length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
             binding.tvUserFollowers.text = followersText
 
-            val followingCount = response.followers ?: 0
+            val followingCount = response.following ?: 0
             val followingText = SpannableString("$followingCount following")
-            followersText.setSpan(StyleSpan(Typeface.BOLD), 0, followingCount.toString().length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            followingText.setSpan(StyleSpan(Typeface.BOLD), 0, followingCount.toString().length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
             binding.tvUserFollowing.text = followingText
 
             Glide.with(binding.root.context)
@@ -72,13 +82,7 @@ class DetailActivity : AppCompatActivity() {
         })
     }
 
-    private fun setupActionBar() {
-        val actionbar = supportActionBar
-        actionbar?.setDisplayHomeAsUpEnabled(true)
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 }

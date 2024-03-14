@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GithubUser"
         tools:targetApi="31">
+        <meta-data
+            android:name="android.support.ui.mode.night"
+            android:value="notnight" />
         <activity
             android:name=".ui.DetailActivity"
             android:exported="false" />
@@ -23,7 +26,6 @@
             android:theme="@style/Theme.App.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

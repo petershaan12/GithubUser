@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
 class SectionsPagerAdapter(activity: AppCompatActivity) : FragmentStateAdapter(activity) {
-    var username: String = "peter"
+    var username: String = ""
     override fun createFragment(position: Int): Fragment {
         val fragment = FollowFragment()
         fragment.arguments = Bundle().apply {

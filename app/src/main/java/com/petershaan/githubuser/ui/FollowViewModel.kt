@@ -19,18 +19,13 @@ class FollowViewModel: ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    companion object {
+    companion object{
         private const val TAG = "FollowViewModel"
-        private const val GITHUB_NAME = "Peter"
     }
 
-    init {
-        getFollowers(GITHUB_NAME)
-    }
-
-    fun getFollowers(name: String) {
+    fun getFollowers(username: String) {
         _isLoading.value = true
-        val client = ApiConfig.getApiService().getFollowers(name)
+        val client = ApiConfig.getApiService().getFollowers(username)
         client.enqueue(object : Callback<List<ItemsItem>> {
             override fun onResponse(
                 call: Call<List<ItemsItem>>,
@@ -40,7 +35,7 @@ class FollowViewModel: ViewModel() {
                 if (response.isSuccessful) {
                     val responseBody = response.body()
                     if (responseBody != null) {
-                        Log.d(TAG, "onResponse: Response successful, total items: ${responseBody.size}")
+                        Log.d(FollowViewModel.TAG, "onResponse: Response successful, total Followers: ${responseBody.size}")
                         _listFollowers.value =  responseBody
                     }
                 } else {
@@ -49,7 +44,33 @@ class FollowViewModel: ViewModel() {
             }
             override fun onFailure(call: Call<List<ItemsItem>>, t: Throwable) {
                 _isLoading.value = false
-                Log.e(TAG, "onFailure: ${t.message}")
+                Log.e(TAG, "onFailure: ${t.message.toString()}")
+            }
+        })
+    }
+
+    fun getFollowing(username: String) {
+        _isLoading.value = true
+        val client = ApiConfig.getApiService().getFollowing(username)
+        client.enqueue(object : Callback<List<ItemsItem>> {
+            override fun onResponse(
+                call: Call<List<ItemsItem>>,
+                response: Response<List<ItemsItem>>
+            ) {
+                _isLoading.value = false
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody != null) {
+                        Log.d(FollowViewModel.TAG, "onResponse: Response successful, total Following: ${responseBody.size}")
+                        _listFollowing.value =  responseBody
+                    }
+                } else {
+                    Log.e(TAG, "onFailure: ${response.message()}")
+                }
+            }
+            override fun onFailure(call: Call<List<ItemsItem>>, t: Throwable) {
+                _isLoading.value = false
+                Log.e(TAG, "onFailure: ${t.message.toString()}")
             }
         })
     }

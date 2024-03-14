@@ -1,20 +1,13 @@
 package com.petershaan.githubuser.ui
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.petershaan.githubuser.data.response.GithubResponse
 import com.petershaan.githubuser.data.response.ItemsItem
-import com.petershaan.githubuser.data.retrofit.ApiConfig
 import com.petershaan.githubuser.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -30,10 +23,10 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        val mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(MainViewModel::class.java)
         mainViewModel.listGithubUsers.observe(this) { github ->
             setListData(github)
         }
+
 
         val layoutManager = LinearLayoutManager(this)
         binding.rvUsers.layoutManager = layoutManager

@@ -10,6 +10,7 @@ import retrofit2.http.Headers
 class ApiConfig {
     companion object{
         fun getApiService(): ApiService {
+            //token sendiri :)
             val authInterceptor = Interceptor { chain ->
                 val req = chain.request()
                 val requestHeaders = req.newBuilder()
@@ -17,10 +18,11 @@ class ApiConfig {
                     .build()
                 chain.proceed(requestHeaders)
             }
+            //token dari dicoding
             val loggingInterceptor =
                 HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
             val client = OkHttpClient.Builder()
-                .addInterceptor(loggingInterceptor)
+                .addInterceptor(authInterceptor)
                 .build()
             val retrofit = Retrofit.Builder()
                 .baseUrl("https://api.github.com/")
