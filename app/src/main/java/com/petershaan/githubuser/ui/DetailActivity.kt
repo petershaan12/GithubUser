@@ -19,15 +19,6 @@ import com.petershaan.githubuser.R
 import com.petershaan.githubuser.databinding.ActivityDetailBinding
 
 class DetailActivity : AppCompatActivity() {
-    companion object {
-        const val EXTRA_USER = "USER_GITHUB"
-
-        @StringRes
-        private val TAB_TITLES = intArrayOf(
-            R.string.tab_text_1,
-            R.string.tab_text_2
-        )
-    }
     private lateinit var binding: ActivityDetailBinding
     private val detailViewModel by viewModels<DetailViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,5 +75,15 @@ class DetailActivity : AppCompatActivity() {
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    companion object {
+        const val EXTRA_USER = "USER_GITHUB"
+
+        @StringRes
+        private val TAB_TITLES = intArrayOf(
+            R.string.tab_text_1,
+            R.string.tab_text_2
+        )
     }
 }

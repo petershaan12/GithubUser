@@ -11,10 +11,7 @@ import com.petershaan.githubuser.data.response.ItemsItem
 import com.petershaan.githubuser.databinding.FragmentFollowBinding
 
 class FollowFragment : Fragment() {
-    companion object {
-        const val ARG_POSITION = "position"
-        const val ARG_USERNAME = "username"
-    }
+
     private lateinit var binding: FragmentFollowBinding
     private val followViewModel by viewModels<FollowViewModel>()
 
@@ -58,6 +55,9 @@ class FollowFragment : Fragment() {
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
-}
 
-//
+    companion object {
+        const val ARG_POSITION = "position"
+        const val ARG_USERNAME = "username"
+    }
+}
