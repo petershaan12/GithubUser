@@ -11,7 +11,7 @@
 ## ⚠️ Disclaimer 
 This repository is created for sharing and educational purposes only. Plagiarism is unacceptable and is not my responsibility as the author.
 
-## Submission: Blog Makanan
+## Submission: Github Users
 * There are some Android components that I implement in this submission project:
     * Room & DataStore
     * SearchView & TabLayout
