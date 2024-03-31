@@ -17,4 +17,4 @@ This repository is created for sharing and educational purposes only. Plagiarism
     * SearchView & TabLayout
     * API Github (LIVEDATA)
 * Screenshoot
- <img alt="Logo_Bangkit" src="https://raw.githubusercontent.com/petershaan12/GithubUser/master/app/src/main/res/drawable/preview.png" width="1000" />
+ <img alt="Logo_Bangkit" src="https://raw.githubusercontent.com/petershaan12/GithubUser/master/app/src/main/res/drawable/preview.png?raw=true" width="1000" />
