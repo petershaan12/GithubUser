@@ -11,4 +11,7 @@
     <string name="tab_text_2">My Followers</string>
     <string name="isi_fragment">ini adalah Fragment</string>
     <string name="content_tab_text">This is Tab %1$d</string>
+    <string name="add_favorit">add_favorit</string>
+    <string name="Fav">Favorit\n</string>
+    <string name="dark_mode">Dark Mode</string>
 </resources>

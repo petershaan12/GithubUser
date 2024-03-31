@@ -11,6 +11,7 @@ import com.petershaan.githubuser.data.response.ItemsItem
 import com.petershaan.githubuser.databinding.GithubUsersBinding
 
 class GithubAdapter : ListAdapter<ItemsItem, GithubAdapter.MyViewHolder>(DIFF_CALLBACK) {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding = GithubUsersBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(binding)
